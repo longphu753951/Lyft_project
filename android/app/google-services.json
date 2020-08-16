@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "775082441115",
+    "firebase_url": "https://lyft-d3dde.firebaseio.com",
+    "project_id": "lyft-d3dde",
+    "storage_bucket": "lyft-d3dde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775082441115:android:b8af95cb96ec555309493e",
+        "android_client_info": {
+          "package_name": "com.example.app_dat_xe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775082441115-9mjdeldf90th6ucod7tn07a3rdosetjq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDgGTJxV-PIfNGF6Yq5wMy0QFKfbNfZPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775082441115-9mjdeldf90th6ucod7tn07a3rdosetjq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
