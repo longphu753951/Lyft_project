@@ -7,6 +7,9 @@ class LoginPage extends StatefulWidget{
   _LoginPageState createState() => _LoginPageState();
 }
 class _LoginPageState extends State<LoginPage>{
+  bool _showPass = false;
+  TextEditingController _userController = new TextEditingController();
+  TextEditingController _passController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -41,7 +44,7 @@ class _LoginPageState extends State<LoginPage>{
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
               child: TextField(
                 style: TextStyle(fontSize: 18, color: Colors.black),
-
+                controller: _userController,
                 decoration:
                 InputDecoration(
                     labelText: "USERNAME",
@@ -59,7 +62,8 @@ class _LoginPageState extends State<LoginPage>{
                 children: <Widget>[
                   TextField(
                     style: TextStyle(fontSize: 18, color: Colors.black),
-                    obscureText: true,
+                    obscureText: _showPass,
+                    controller: _passController,
                     decoration:
                     InputDecoration(
                         labelText: "PASSWORD",
@@ -67,12 +71,15 @@ class _LoginPageState extends State<LoginPage>{
                         focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.pink)),
                     ),
                   ),
-                  Text(
-                    "SHOW",
-                    style: TextStyle(
-                      color: Colors.pink,
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold
+                  GestureDetector(
+                    onTap: onToggleShowPassword,
+                    child: Text(
+                      _showPass?"SHOW":"HIDE",
+                      style: TextStyle(
+                        color: Colors.pink,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold
+                      ),
                     ),
                   )
                 ]
@@ -120,5 +127,11 @@ class _LoginPageState extends State<LoginPage>{
 
 
   void onSignInClicked() {
+  }
+
+  void onToggleShowPassword() {
+      setState(() {
+        _showPass = !_showPass;
+      });
   }
 }
