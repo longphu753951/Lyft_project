@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:app_dat_xe/src/validator/validators.dart';
-
+import 'package:app_dat_xe/src/fire_base/fire_base_auth.dart';
 class LoginBloc{
+  var _fireAuth = FireAuth();
   StreamController _emailController = new StreamController();
   StreamController _passController = new StreamController();
 
@@ -21,7 +22,9 @@ class LoginBloc{
     _passController.sink.add("OK");
     return true;
   }
-
+  void signIn(String email, String pass, Function onSuccess, Function(String) onLogInError){
+    _fireAuth.signIn(email, pass, onSuccess, onLogInError);
+  }
   void diposed(){
     _emailController.close();
     _passController.close();

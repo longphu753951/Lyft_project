@@ -1,9 +1,13 @@
+import 'package:app_dat_xe/src/app.dart';
 import 'package:app_dat_xe/src/blocs/login_bloc.dart';
+import 'package:app_dat_xe/src/resource/dialog/msg_dialog.dart';
 import 'package:app_dat_xe/src/resource/home_page.dart';
 import 'package:app_dat_xe/src/resource/register_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+
+import 'dialog/loading_dialog.dart';
 
 class LoginPage extends StatefulWidget{
   @override
@@ -148,9 +152,17 @@ class _LoginPageState extends State<LoginPage>{
 
   void onSignInClicked() {
     if(bloc.IsValidInfo(_emailController.text, _passController.text)){
-      Navigator.push(context,
-        MaterialPageRoute(builder: (context)=>HomePage())
-      );
+      var loginBloc = MyApp.of(context).loginBloc;
+      LoadingDialog.showLoadingDialog(context, "Loading ....");
+      loginBloc.signIn(_emailController.text,  _passController.text, (){
+        LoadingDialog.hideLoadingDialog(context);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context)=>HomePage())
+        );
+      }, (msg){
+        LoadingDialog.hideLoadingDialog(context);
+        MsgDialog.showMsgDialog(context, "Sign-In", msg);
+      });
     }
   }
 

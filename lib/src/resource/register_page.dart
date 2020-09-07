@@ -1,4 +1,6 @@
 import 'package:app_dat_xe/src/blocs/signup_bloc.dart';
+import 'package:app_dat_xe/src/resource/dialog/loading_dialog.dart';
+import 'package:app_dat_xe/src/resource/dialog/msg_dialog.dart';
 import 'package:app_dat_xe/src/resource/login_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -248,11 +250,17 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void onSignUpPressed() {
     if(bloc.IsValidInfo(_userController.text,_emailController.text,_phoneController.text,_passController.text)){
-     bloc.signUp(_emailController.text, _passController.text, _phoneController.text, _userController.text, (){
-       Navigator.push(context,
+     //Chạy dialog load và tạo user
+      LoadingDialog.showLoadingDialog(context, "Loading ...");
+      bloc.signUp(_emailController.text, _passController.text, _phoneController.text, _userController.text, (){
+       LoadingDialog.hideLoadingDialog(context);
+        Navigator.push(context,
            MaterialPageRoute(builder: (context)=>HomePage())
        );
-     });
+     },(msg){
+        LoadingDialog.hideLoadingDialog(context);
+        MsgDialog.showMsgDialog(context, "", msg);
+      });
     }
   }
 }
