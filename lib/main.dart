@@ -11,7 +11,7 @@ void main() async {
   runApp(MyApp( new LoginBloc(),
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomePage(),
+        home: LoginPage(),
       )));
 }
 
