@@ -9,7 +9,7 @@ import 'package:app_dat_xe/src/model/place_item_res.dart';
 class PlaceService {
   static Future<List<PlaceItemRes>> searchPlace(String keyword) async {
     String url =
-        "https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyA2XXnCcwGfMW12S-tntK6IHQB-G4PC3GQ&language=vi&region=VN&query=" +
+        "https://maps.googleapis.com/maps/api/place/textsearch/json?key=NHAP_KEY_O_DAY&language=vi&region=VN&query=" +
             Uri.encodeQueryComponent(keyword);
 
     print("search >>: " + url);
@@ -38,7 +38,7 @@ class PlaceService {
         output +
         "?" +
         parameters +
-        "&key=AIzaSyA2XXnCcwGfMW12S-tntK6IHQB-G4PC3GQ";
+        "&key=NHAP_KEY_O_DAY";
 
     print(url);
     final JsonDecoder _decoder = new JsonDecoder();
