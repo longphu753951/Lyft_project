@@ -1,5 +1,4 @@
 
-
 import 'package:app_dat_xe/src/model/step_res.dart';
 
 class TripInfoRes {

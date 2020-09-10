@@ -1,5 +1,6 @@
 import 'package:app_dat_xe/src/model/place_item_res.dart';
 import 'package:app_dat_xe/src/model/step_res.dart';
+import 'package:app_dat_xe/src/model/trip_info_res.dart';
 import 'package:app_dat_xe/src/responsitory/place_service.dart';
 import 'package:app_dat_xe/src/widgets/home_menu.dart';
 import 'package:app_dat_xe/src/widgets/ride_picker.dart';
@@ -30,6 +31,9 @@ class _HomePageState extends State<HomePage> {
        child: Stack(
          children: <Widget>[
            GoogleMap(
+             onMapCreated: (GoogleMapController controller) {
+               _mapController = controller;
+             },
              initialCameraPosition: CameraPosition(
                target: LatLng(10.7915178, 106.72714422),
                zoom: 14.4746
@@ -91,6 +95,8 @@ class _HomePageState extends State<HomePage> {
   onPlaceSelected(PlaceItemRes place, bool p2) {
     String mkId = p2 ? "from_address" : "to_address";
     _addMarker(mkId, place);
+    _moveCamera();
+    _checkDrawPolyline();
   }
 
   void _addMarker(String mkId, PlaceItemRes place) async {
@@ -141,30 +147,32 @@ class _HomePageState extends State<HomePage> {
     }
   }
   void _checkDrawPolyline() {
+//  remove old polyline
     _mapController.clearPolylines();
 
-    if(_markers.length > 1){
+    if (_markers.length > 1) {
       var from = _markers["from_address"].options.position;
       var to = _markers["to_address"].options.position;
-      PlaceService.getStep(from.latitude,from.longitude,to.latitude,to.longitude)
-      .then((vl) {
-        List<StepsRes> rs = vl;
+      PlaceService.getStep(
+          from.latitude, from.longitude, to.latitude, to.longitude)
+          .then((vl) {
+        TripInfoRes infoRes = vl;
+
+        _tripDistance = infoRes.distance;
+        setState(() {
+        });
+        List<StepsRes> rs = infoRes.steps;
         List<LatLng> paths = new List();
-        for(var t in rs){
+        for (var t in rs) {
           paths
-              .add(LatLng(
-            t.startLocation.latitude,t.startLocation.longitude
-          ));
-          paths
-              .add(LatLng(
-              t.endLocation.latitude,t.endLocation.longitude
-          ));
+              .add(LatLng(t.startLocation.latitude, t.startLocation.longitude));
+          paths.add(LatLng(t.endLocation.latitude, t.endLocation.longitude));
         }
-        print(paths);
+
+//        print(paths);
         _mapController.addPolyline(PolylineOptions(
-          points: paths,color: Colors.pink.value,width: 4
-        ));
+            points: paths, color: Colors.pink.value, width: 20));
       });
-  }
+    }
   }
 }

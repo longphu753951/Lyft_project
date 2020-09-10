@@ -14,6 +14,7 @@ class RidePicker extends StatefulWidget{
 class _RidePickerState extends State<RidePicker>{
   PlaceItemRes fromAddress;
   PlaceItemRes toAddress;
+
   @override
   Widget build(BuildContext context) {
    return Container(
@@ -35,7 +36,7 @@ class _RidePickerState extends State<RidePicker>{
             child: FlatButton(
               onPressed: (){
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context)=>RidePickerPage(
+                    builder: (context) => RidePickerPage(
                         fromAddress == null ? "" : fromAddress.name,
                             (place, isFrom) {
                           widget.onSelected(place, isFrom);
@@ -71,13 +72,12 @@ class _RidePickerState extends State<RidePicker>{
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(40, 0, 50, 0),
-                      child: Text('From',
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                        TextStyle(fontSize: 16,
-                            color: Color(0xff323643)
-                        ),
+                      padding: EdgeInsets.only(left: 40, right: 50),
+                      child: Text(
+                        fromAddress == null ? "From" : fromAddress.name,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                        TextStyle(fontSize: 16, color: Color(0xff323643)),
                       ),
                     )
                   ],
@@ -127,13 +127,12 @@ class _RidePickerState extends State<RidePicker>{
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(40, 0, 50, 0),
-                      child: Text('To',
+                      padding: EdgeInsets.only(left: 40, right: 50),
+                      child: Text(
+                        toAddress == null ? "To" : toAddress.name,
                         overflow: TextOverflow.ellipsis,
                         style:
-                        TextStyle(fontSize: 16,
-                            color: Color(0xff323643)
-                        ),
+                        TextStyle(fontSize: 16, color: Color(0xff323643)),
                       ),
                     )
                   ],
