@@ -2,8 +2,10 @@ import 'package:app_dat_xe/src/model/place_item_res.dart';
 import 'package:app_dat_xe/src/model/step_res.dart';
 import 'package:app_dat_xe/src/model/trip_info_res.dart';
 import 'package:app_dat_xe/src/responsitory/place_service.dart';
+import 'package:app_dat_xe/src/widgets/car_pickup.dart';
 import 'package:app_dat_xe/src/widgets/home_menu.dart';
 import 'package:app_dat_xe/src/widgets/ride_picker.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -18,6 +20,15 @@ class _HomePageState extends State<HomePage> {
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   var _tripDistance = 0;
   final Map<String, Marker> _markers = <String, Marker>{};
+  final FirebaseMessaging _messaging = FirebaseMessaging();
+  String a = "";
+  @override
+  void initState() {
+    super.initState();
+    _messaging.getToken().then((token) {
+      print(token);
+    });
+  }
 
   GoogleMapController _mapController;
 
@@ -77,7 +88,13 @@ class _HomePageState extends State<HomePage> {
                  ),
                ],
              ),
-           )
+           ),
+           Positioned(
+             left: 20,
+             right: 20,
+             bottom: 40,
+             height: 248,
+             child: CarPickUp(_tripDistance),)
          ],
        ),
      ),

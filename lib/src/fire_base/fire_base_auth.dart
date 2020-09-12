@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'dart:math';
+Random random = new Random();
 
 class FireAuth{
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -23,7 +25,16 @@ class FireAuth{
       onLogInError("Sai tài khoản hoặc mật khẩu, vui lòng thử lại");
     });
   }
-
+  void DangKyXe(String diemBatDau, String diemKetThuc, String loaiXe, String thanhTien, String soKM,Function onSuccess, Function(String) onRegisterError){
+    var thongTin = {"diemBatDau": diemBatDau, "diemKetThuc": diemKetThuc, "loaiXe": loaiXe, "thanhTien": thanhTien, "soKM": soKM};
+    var ref = FirebaseDatabase.instance.reference().child("thongTinDatXe");
+    int randomNumber = random.nextInt(500000);
+    ref.child(randomNumber.toString()).set(thongTin).then((thongTin){
+      onSuccess();
+    }).catchError((err){
+      onRegisterError("Đặt xe thất bại, vui lọng thử lại");
+    });
+  }
   _createUser(String userId, String name, String phone,Function onSuccess, Function(String) onRegisterError){
     var user = {"name": name, "phone": phone};
     var ref = FirebaseDatabase.instance.reference().child("users");
